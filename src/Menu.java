@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
-public class Menu {
-    private final String gibberish = "lvxswdfguhjknbiopearycqztm";
+public class Menu {//TODO 1)seed randomizer, 2) swap letter accordingly
+    private String gibberish = "lvxswdfguhjknbiopearycqztm";
     private final String alphabet = "abcdefghijklmnopqrstuvwxyz";
     private Scanner scan;
 
