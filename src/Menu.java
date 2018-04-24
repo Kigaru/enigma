@@ -60,6 +60,6 @@ public class Menu {//TODO 1)seed randomizer, 2) swap letter accordingly
         scan.nextLine();
         System.out.print("What message do you want to decode: ");
         String code = scan.nextLine();
-        System.out.println("The decoded message is: \n"+ converter(code, encryptedAlphabet, alphabet)+"\n");
+        System.out.println("The decoded message is: \n"+ converter(code, encryptedAlphabet, alphabet)+"\n");//random to level with master
     }
 }
