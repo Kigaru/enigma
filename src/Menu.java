@@ -2,7 +2,6 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class Menu {//TODO 1)seed randomizer, 2) swap letter accordingly
-    private String encryptedAlphabet = "lvxswdfguhjknbiopearycqztm";
     private long seed;
     private final String alphabet = "abcdefghijklmnopqrstuvwxyz";
     private Scanner scan;
@@ -40,13 +39,13 @@ public class Menu {//TODO 1)seed randomizer, 2) swap letter accordingly
         System.out.print("What message do you want to encode: ");
         String code = scan.nextLine();
         int seed = random.nextInt();
-        System.out.println("\nYour seed is:\n"+seed+"\nKEEP IT SAFE IF YOU WANT TO DECODE LATER\nThe encoded message is: \n"+ converter(code, alphabet, encryptedAlphabet)+"\n");
+        System.out.println("\nYour seed is:\n"+seed+"\nKEEP IT SAFE IF YOU WANT TO DECODE LATER\nThe encoded message is: \n"+ converter(code, alphabet, seed)+"\n");
     }
 
-    private String converter(String code, String input, String algorithm) { //TODO enigma doesn't behave that way, because encryptedAlphabet changes on each letter input
+    private String converter(String Input, long seed) { //TODO enigma doesn't behave that way, because encryptedAlphabet changes on each letter input
         StringBuilder outputBuilder = new StringBuilder();
-        for(int i = 0; i < code.length(); i++) {
-            char chara = code.toLowerCase().charAt(i);
+        for(int i = 0; i < Input.length(); i++) {
+            char chara = Input.toLowerCase().charAt(i);
             if(Character.isLetter(chara)) {
                 int letterArray = input.indexOf(chara);
                 char convertedChar = algorithm.charAt(letterArray);
@@ -63,8 +62,10 @@ public class Menu {//TODO 1)seed randomizer, 2) swap letter accordingly
 
     private void decoder() {
         scan.nextLine();
+        System.out.print("Enter seed: ");
+        long seed = scan.nextLong();
         System.out.print("What message do you want to decode: ");
         String code = scan.nextLine();
-        System.out.println("The decoded message is: \n"+ converter(code, encryptedAlphabet, alphabet)+"\n");//random to level with master
+        System.out.println("The decoded message is: \n"+ converter(code, seed)+"\n");//random to level with master
     }
 }
