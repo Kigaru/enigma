@@ -1,14 +1,18 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class Menu {//TODO 1)seed randomizer, 2) swap letter accordingly
     private String encryptedAlphabet = "lvxswdfguhjknbiopearycqztm";
+    private long seed;
     private final String alphabet = "abcdefghijklmnopqrstuvwxyz";
     private Scanner scan;
+    private Random random;
 
     public static void main(String[] args) {
         new Menu();
     }
     private Menu() {
+        random = new Random();
         scan = new Scanner(System.in);
         while(true) {
             switch (display()) {
@@ -35,7 +39,8 @@ public class Menu {//TODO 1)seed randomizer, 2) swap letter accordingly
         scan.nextLine();
         System.out.print("What message do you want to encode: ");
         String code = scan.nextLine();
-        System.out.println("The encoded message is: \n"+ converter(code, alphabet, encryptedAlphabet)+"\n");
+        int seed = random.nextInt();
+        System.out.println("\nYour seed is:\n"+seed+"\nKEEP IT SAFE IF YOU WANT TO DECODE LATER\nThe encoded message is: \n"+ converter(code, alphabet, encryptedAlphabet)+"\n");
     }
 
     private String converter(String code, String input, String algorithm) { //TODO enigma doesn't behave that way, because encryptedAlphabet changes on each letter input
