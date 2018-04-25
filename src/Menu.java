@@ -42,13 +42,14 @@ public class Menu {//TODO 1)seed randomizer, 2) swap letter accordingly
         System.out.println("\nYour seed is:\n"+seed+"\nKEEP IT SAFE IF YOU WANT TO DECODE LATER\nThe encoded message is: \n"+ converter(code, alphabet, seed)+"\n");
     }
 
-    private String converter(String Input, long seed) { //TODO enigma doesn't behave that way, because encryptedAlphabet changes on each letter input
+    private String converter(String input, long seed) { //TODO enigma doesn't behave that way, because encryptedAlphabet changes on each letter input
         StringBuilder outputBuilder = new StringBuilder();
-        for(int i = 0; i < Input.length(); i++) {
-            char chara = Input.toLowerCase().charAt(i);
+        random.setSeed(seed);
+        for(int i = 0; i < input.length(); i++) {
+            char chara = input.toLowerCase().charAt(i);
             if(Character.isLetter(chara)) {
-                int letterArray = input.indexOf(chara);
-                char convertedChar = algorithm.charAt(letterArray);
+                int letterArray = alphabet.indexOf(chara);
+                char convertedChar = alphabet.charAt(letterArray+random.nextInt());//NEXT INT WHAT IS BOUND DUDE
                 String convertedLetter = String.valueOf(convertedChar);
                 outputBuilder.append(convertedLetter);
             }
