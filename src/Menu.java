@@ -38,18 +38,22 @@ public class Menu {//TODO 1)seed randomizer, 2) swap letter accordingly
         scan.nextLine();
         System.out.print("What message do you want to encode: ");
         String code = scan.nextLine();
-        int seed = random.nextInt();
-        System.out.println("\nYour seed is:\n"+seed+"\nKEEP IT SAFE IF YOU WANT TO DECODE LATER\nThe encoded message is: \n"+ converter(code, alphabet, seed)+"\n");
+        long seed = random.nextInt();
+        System.out.println("\nYour seed is:\n"+seed+"\nKEEP IT SAFE IF YOU WANT TO DECODE LATER\nThe encoded message is: \n"+ converter(code, seed,true)+"\n");
     }
 
-    private String converter(String input, long seed) { //TODO enigma doesn't behave that way, because encryptedAlphabet changes on each letter input
+    private String converter(String input, long seed, boolean encode) { //TODO enigma doesn't behave that way, because encryptedAlphabet changes on each letter input
         StringBuilder outputBuilder = new StringBuilder();
         random.setSeed(seed);
         for(int i = 0; i < input.length(); i++) {
             char chara = input.toLowerCase().charAt(i);
             if(Character.isLetter(chara)) {
                 int letterArray = alphabet.indexOf(chara);
-                char convertedChar = alphabet.charAt(letterArray+random.nextInt());//NEXT INT WHAT IS BOUND DUDE
+                char convertedChar = 'a';
+                if(encode == true)
+                    convertedChar = replacer(letterArray,true);//NEXT INT WHAT IS BOUND DUDE
+                if(encode == false)
+                    convertedChar = replacer(letterArray,false);//NEXT INT WHAT IS BOUND DUDE
                 String convertedLetter = String.valueOf(convertedChar);
                 outputBuilder.append(convertedLetter);
             }
@@ -61,12 +65,40 @@ public class Menu {//TODO 1)seed randomizer, 2) swap letter accordingly
         return outputBuilder.toString();
     }
 
+    private char replacer(int number,boolean encode) {
+        System.out.println("a "+number);
+        int randomnumber = random.nextInt();
+        System.out.println("b "+randomnumber);
+        if(encode==true)
+            number = number + randomnumber;
+        System.out.println("c "+number);
+        if(encode==false)
+            number = number - randomnumber;
+        System.out.println("d "+number);
+        ///////////fixme get better collection
+        while(number>25 || number<0) {
+            if (number > 25) {
+                while (number > 25) {
+                    number = number - 26;
+                }
+            }
+            if (number<0) {
+                while(number<0) {
+                    number = number + 26;
+                }
+            }
+        }
+        ///////////////end
+        return alphabet.charAt(number);
+    }
+
     private void decoder() {
         scan.nextLine();
         System.out.print("Enter seed: ");
-        long seed = scan.nextLong();
+        random.setSeed(scan.nextLong());
+        scan.nextLine();
         System.out.print("What message do you want to decode: ");
         String code = scan.nextLine();
-        System.out.println("The decoded message is: \n"+ converter(code, seed)+"\n");//random to level with master
+        System.out.println("The decoded message is: \n"+ converter(code, seed,false)+"\n");//random to level with master
     }
 }
