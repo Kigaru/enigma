@@ -22,7 +22,6 @@ public class Menu {
                     decoder();
                     break;
                 default:
-                    System.out.println("why not?");
                     break;
                 case 0:
                     System.exit(0);
@@ -30,8 +29,15 @@ public class Menu {
         }
     }
     private int display() {
-        System.out.println("choose:\n1)encode\n2)decode");
-        return scan.nextInt();
+        try {
+            System.out.println("choose:\n1)encode\n2)decode");
+            return scan.nextInt();
+        }
+        catch (Exception e) {
+            System.out.println("Invalid input\n");
+            scan.nextLine();
+        }
+        return 5;
     }
 
     private void encoder() {
@@ -88,8 +94,17 @@ public class Menu {
 
     private void decoder() {
         scan.nextLine();
-        System.out.print("Enter seed: ");
-        seed = scan.nextLong();
+        boolean validInput = false;
+        while(!validInput) {
+            try {
+                System.out.print("Enter seed: ");
+                seed = scan.nextLong();
+                validInput=true;
+            } catch (Exception e) {
+                System.out.println("Invalid input, try again");
+                scan.nextLine();
+            }
+        }
         scan.nextLine();
         System.out.print("What message do you want to decode: ");
         String code = scan.nextLine();
