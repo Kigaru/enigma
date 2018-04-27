@@ -1,5 +1,6 @@
 #  Welcome to my Enigma project!
 
-This is going to be a small app that encodes and decodes letters provided that you have some kind of permission id to decode.
+This java code will ask you to enter a message, the program will generate a seed for you that you need to keep.
+to decode the message input the seed you've been given, and the application will decode the message for you.
 
-still wip
+system complete!
