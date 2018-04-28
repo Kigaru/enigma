@@ -16,10 +16,10 @@ public class Menu {
         while(true) {
             switch (display()) {
                 case 1:
-                    encoder();
+                    encrypter();
                     break;
                 case 2:
-                    decoder();
+                    decrypter();
                     break;
                 default:
                     break;
@@ -30,7 +30,7 @@ public class Menu {
     }
     private int display() {
         try {
-            System.out.println("choose:\n1)encode\n2)decode");
+            System.out.println("choose:\n1)encrypt\n2)decrypt");
             return scan.nextInt();
         }
         catch (Exception e) {
@@ -40,15 +40,15 @@ public class Menu {
         return 5;
     }
 
-    private void encoder() {
+    private void encrypter() {
         scan.nextLine();
-        System.out.print("What message do you want to encode: ");
+        System.out.print("What message do you want to encrypt: ");
         String code = scan.nextLine();
         long seed = random.nextInt();
-        System.out.println("\nYour seed is:\n"+seed+"\nKEEP IT SAFE IF YOU WANT TO DECODE LATER\nThe encoded message is: \n"+ converter(code, seed,true)+"\n");
+        System.out.println("\nYour seed is:\n"+seed+"\nKEEP IT SAFE IF YOU WANT TO DECRYPT LATER\nThe encrypted message is: \n"+ converter(code, seed,true)+"\n");
     }
 
-    private String converter(String input, long seed, boolean encode) {
+    private String converter(String input, long seed, boolean encrypt) {
         StringBuilder outputBuilder = new StringBuilder();
         random.setSeed(seed);
         for(int i = 0; i < input.length(); i++) {
@@ -56,9 +56,9 @@ public class Menu {
             if(Character.isLetter(chara)) {
                 int letterArray = alphabet.indexOf(chara);
                 char convertedChar = 'a';
-                if(encode == true)
+                if(encrypt == true)
                     convertedChar = replacer(letterArray,true);
-                if(encode == false)
+                if(encrypt == false)
                     convertedChar = replacer(letterArray,false);
                 String convertedLetter = String.valueOf(convertedChar);
                 outputBuilder.append(convertedLetter);
@@ -71,11 +71,11 @@ public class Menu {
         return outputBuilder.toString();
     }
 
-    private char replacer(int number,boolean encode) {
+    private char replacer(int number,boolean encrypt) {
         int randomnumber = random.nextInt();
-        if(encode==true)
+        if(encrypt==true)
             number = number + randomnumber;
-        if(encode==false)
+        if(encrypt==false)
             number = number - randomnumber;
         while(number>25 || number<0) {
             if (number > 25) {
@@ -92,7 +92,7 @@ public class Menu {
         return alphabet.charAt(number);
     }
 
-    private void decoder() {
+    private void decrypter() {
         scan.nextLine();
         boolean validInput = false;
         while(!validInput) {
