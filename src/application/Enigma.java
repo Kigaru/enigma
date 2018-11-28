@@ -30,10 +30,7 @@ public class Enigma {
             if(alphabet.matches("(.*)"+Character.toString(chara)+"(.*)")) {
                 int letterArray = alphabet.indexOf(chara);
                 char convertedChar = 'a';
-                if(encrypt == true)
-                    convertedChar = replacer(letterArray,true);
-                if(encrypt == false)
-                    convertedChar = replacer(letterArray,false);
+                convertedChar = replacer(letterArray,encrypt);
                 String convertedLetter = String.valueOf(convertedChar);
                 outputBuilder.append(convertedLetter);
             }
@@ -46,23 +43,10 @@ public class Enigma {
     }
     
     private char replacer(int number,boolean encrypt) {
-        int randomnumber = random.nextInt();
-        if(encrypt==true)
-            number = number + randomnumber;
-        if(encrypt==false)
-            number = number - randomnumber;
-        while(number>(alphabet.length()-1) || number<0) {
-            if (number > (alphabet.length()-1)) {
-                while (number > (alphabet.length()-1)) {
-                    number = number - alphabet.length();
-                }
-            }
-            if (number<0) {
-                while(number<0) {
-                    number = number + alphabet.length();
-                }
-            }
-        }
+        int randomnumber = random.nextInt();        
+        number += encrypt ? randomnumber : -randomnumber;
+        number = number % alphabet.length();
+        if (number < 0) number += alphabet.length();
         return alphabet.charAt(number);
     }
 }
